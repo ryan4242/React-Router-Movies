@@ -24,7 +24,10 @@ const App = () => {
   }, []);
 
   const addToSavedList = movie => {
-    setSavedList([...savedList, movie]);
+    if(!savedList.find(item => item.title === movie.title)) {
+      setSavedList([...savedList, movie]);
+    }
+    
   };
 
   return (
@@ -32,7 +35,7 @@ const App = () => {
       <SavedList list={savedList} />
       <Switch>
         <Route path='/movies/:id' >
-          <Movie />
+          <Movie addToSavedList={addToSavedList} />
         </Route>
         <Route path='/' >
           <MovieList movies={movieList} />
